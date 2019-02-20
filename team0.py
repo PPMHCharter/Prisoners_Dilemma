@@ -25,9 +25,10 @@ def move(my_history, their_history, my_score, their_score):
     
     if len(my_history)==0: # It's the first round; betray.
         return 'b'
-    if len(my_history)<11:
-        return 'c'
-    if len(my_history)>=11:
+    if len(my_history)>0 
+        if len(my_history)<11:
+            return 'c'
+    if len(my_history):
         if my_history[-10]=='c' and their_history[-5]=='b':
             return 'b' # Betray if they were severely punished last time,
         else:
