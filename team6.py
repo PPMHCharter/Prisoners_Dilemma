@@ -8,58 +8,39 @@
 
 team_name = 'Team M' # Only 10 chars displayed.
 strategy_name = 'COPYCAT'
-strategy_description = 'Our Program first cheats then copies'
+strategy_description = 'Our Program first colludes then copies'
     
-class TitForTat(Player):
-    """ A player starts by betraying and then mimics previous move by opponent. """
-    def strategy(self, opponent):
-        """ Begins by playing 'b': This is affected by the history of the opponent: the strategy simply repeats the last action of the opponent """
-        try:
-            return opponent.history[-1]
-        except IndexError:
-            return 'c'
-
-    def __repr__(self):
-        """ The string method for the strategy. """
-        return 'Tit For Tat'
-
-    return 'c'
-
     
-def test_move(my_history, their_history, my_score, their_score, result):
-    '''calls move(my_history, their_history, my_score, their_score)
-    from this module. Prints error if return value != result.
-    Returns True or False, dpending on whether result was as expected.
+def move(my_history, their_history, my_score, their_score):
+    '''Make my move based on the history with this player.
+    
+    history: a string with one letter (c or b) per round that has been played with this opponent.
+    their_history: a string of the same length as history, possibly empty. 
+    The first round between these two players is my_history[0] and their_history[0]
+    The most recent round is my_history[-1] and their_history[-1]
+    
+    Returns 'c' or 'b' for collude or betray.
     '''
-    real_result = move(my_history, their_history, my_score, their_score)
-    if real_result == result:
-        return True
+    if len(my_history)==0: # It's the first round: collude
+        return 'c'
     else:
-        print("move(" +
-            ", ".join(["'"+my_history+"'", "'"+their_history+"'",
-                       str(my_score), str(their_score)])+
-            ") returned " + "'" + real_result + "'" +
-            " and should have returned '" + result + "'")
-        return False
-
-if __name__ == '__main__':
-     
-    # Test 1: Betray on first move.
-    if test_move(my_history='',
-              their_history='', 
-              my_score=0,
-              their_score=0,
-              result='b'):
-         print 'Test passed'
-     # Test 2: Continue betraying if they collude despite being betrayed.
-    test_move(my_history='bbb',
-              their_history='ccc', 
-              # Note the scores are for testing move().
-              # The history and scores don't need to match unless
-              # that is relevant to the test of move(). Here,
-              # the simulation (if working correctly) would have awarded 
-              # 300 to me and -750 to them. This test will pass if and only if
-              # move('bbb', 'ccc', 0, 0) returns 'b'.
-              my_score=0, 
-              their_score=0,
-              result='b')             
+        # If there was a previous round just like the last one,
+        # do whatever they did in the round that followed it
+        
+        # Reference last round
+        recent_round_them = their_history[-1]
+        recent_round_me = my_history[-1]
+                    
+        # Look at rounds before that one
+        for round in range(len(my_history)-1):
+            prior_round_them = their_history[round]
+            prior_round_me = my_history[round]
+            # If one matches
+            if (prior_round_me == recent_round_me) and \
+                    (prior_round_them == recent_round_them):
+                return their_history[round]
+        # No match found
+        if my_history[-1]=='c' and their_history[-1]=='b':
+            return 'b' # Betray if they were severely punished last time
+        else:
+            return 'c' # Otherwise collude.
