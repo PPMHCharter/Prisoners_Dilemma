@@ -8,31 +8,32 @@
 
 team_name = 'DNME-MAS' # Only 10 chars displayed.
 strategy_name = 'Every1 is the NME!'
-strategy_description = 'b first, collude 10 times, check last 5 moves, if b 1 time, then b, else c.'
+strategy_description = 'Playing The Percentages'
     
 def move(my_history, their_history, my_score, their_score):
-    ''' Arguments accepted: my_history, their_history are strings.
-    my_score, their_score are ints.
+    opp_b = 0
+    opp_c = 0
     
-    Make my move.
-    Returns 'c' or 'b'. 
-    '''
-
-    # my_history: a string with one letter (c or b) per round that has been played with this opponent.
-    # their_history: a string of the same length as history, possibly empty. 
-    # The first round between these two players is my_history[0] and their_history[0].
-    # The most recent round is my_history[-1] and their_history[-1].
-    
-    if len(my_history)==0: # It's the first round; betray.
+    if len(my_history) < 10:
+        return 'c'
+    elif len(my_history) < 20:
         return 'b'
-    if len(my_history)>0 
-        if len(my_history)<11:
-            return 'c'
-    if len(my_history):
-        if my_history[-10]=='c' and their_history[-5]=='b':
-            return 'b' # Betray if they were severely punished last time,
+    else:
+        for choice in their_history:
+            if choice == 'b':
+                opp_b += 1
+            else:
+                opp_c += 1
+                
+        if opp_c != 0:
+            percentage = float(opp_b)/opp_c
         else:
-            return 'c' # otherwise collude.
+            return 'b'
+            
+        if percentage >= 1:
+            return 'b'
+        else:
+            return 'c'
     
  
 
