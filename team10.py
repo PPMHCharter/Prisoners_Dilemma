@@ -1,4 +1,4 @@
-Team Name: Smash Bros
+Team_Name = 'Smash Bros'
 strategy_name = 'Alternate'
 strategy_description = 'Collude, then alternate.'
     
