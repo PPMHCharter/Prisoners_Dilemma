@@ -6,7 +6,7 @@
 #     move: A function that returns 'c' or 'b'
 ####
 
-team_name = 'ACAM'
+team_name = 'ACDF'
 strategy_name = 'History with the player'
 strategy_description = 'The strategy looks at the previous history with the player'
     
@@ -32,3 +32,5 @@ def move(my_history, their_history, my_score, their_score):
             return 'b' 
         else:
             return 'c'
+
+        
