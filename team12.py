@@ -6,11 +6,11 @@
 #     move: A function that returns 'c' or 'b'
 ####
 
-team_name = 'Team 12' # Only 10 chars displayed.
+team_name = 'Team12-MJJR' # Only 10 chars displayed.
 strategy_name = 'If betrayed, then try, try again'
 strategy_description = 'The player will collude until betrayed. After being betrayed, they will betray for two rounds and then attempt'
-'to collude again. If the opponent colludes, they will continue colluding until betrayed again. If the opponent betrays, they will betray
-'for two rounds and then try colluding again.'
+'to collude again. If the opponent colludes, they will continue colluding until betrayed again. If the opponent betrays, they will'
+'betray for two rounds and then try colluding again.'
     
 def move(my_history, their_history, my_score, their_score):
     ''' Arguments accepted: my_history, their_history are strings.
